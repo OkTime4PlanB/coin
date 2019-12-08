@@ -10,44 +10,84 @@
   </head>
 
   <body>
-    <nav class="navbar is-transparent is-spaced is-warning">
+    <nav class="navbar is-transparent is-spaced is-warning has-shadow">
       <div class="container">
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-start">
-            <%=  link_to( root_path, class: "button is-warning is-hovered is-large") do %>
-              <span> <h1 class="title">Coin &nbsp;</h1> </span>
-              <span> <i class="fas fa-coins"></i> </span>
+            <%=  link_to( root_path, class: "button is-warning is-hovered is-large has-shadow") do %>
+              <span>
+                <h1 class="title">Coin &nbsp;</h1>
+              </span>
+              <span>
+                <i class="fas fa-coins">
+              </i> </span>
             <% end %>
           </div>
         </div>
-  
-        <div class="navbar-end">
+        <% if user_signed_in? %>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%=  link_to(destroy_user_session_path, method: :delete, class: "button") do %>
+                    <span class="icon">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                    <span>
+                      Logout
+                    </span>
+                  <% end %>
+                </p>
+                <p class="control">
+                  <%=  link_to(edit_user_registration_path, class: "button is-dark") do %>
+                    <span class="icon">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <span>
+                      Edit Profil
+                    </span>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="navbar-end">
           <div class="navbar-item">
             <div class="field is-grouped">
               <p class="control">
-                <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
+                <%=  link_to(new_user_session_path, class: "button") do %>
                   <span class="icon">
-                    <i class="fab fa-twitter"></i>
+                    <i class="fas fa-sign-in-alt"></i>
                   </span>
                   <span>
-                    Tweet
+                    Login
                   </span>
-                </a>
+                <% end %>
               </p>
               <p class="control">
-                <a class="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.8.0/bulma-0.8.0.zip">
+                <%=  link_to(new_user_registration_path, class: "button is-dark") do %>
                   <span class="icon">
-                    <i class="fas fa-download"></i>
+                    <i class="fas fa-user-plus"></i>
                   </span>
-                  <span>Download</span>
-                </a>
+                  <span>
+                    Sign up 
+                  </span>
+                <% end %>
               </p>
             </div>
           </div>
         </div>
+        <% end %>
       </div>
     </nav>
     <div class="container">
+      <% if notice %>
+        <p class="notification is-info"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="notification is-warning"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </div>
   </body>
