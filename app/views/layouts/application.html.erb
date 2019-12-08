@@ -10,6 +10,85 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar is-transparent is-spaced is-warning has-shadow">
+      <div class="container">
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <%=  link_to( root_path, class: "button is-warning is-hovered is-large has-shadow") do %>
+              <span>
+                <h1 class="title">Coin &nbsp;</h1>
+              </span>
+              <span>
+                <i class="fas fa-coins">
+              </i> </span>
+            <% end %>
+          </div>
+        </div>
+        <% if user_signed_in? %>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%=  link_to(destroy_user_session_path, method: :delete, class: "button") do %>
+                    <span class="icon">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                    <span>
+                      Logout
+                    </span>
+                  <% end %>
+                </p>
+                <p class="control">
+                  <%=  link_to(edit_user_registration_path, class: "button is-dark") do %>
+                    <span class="icon">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <span>
+                      Edit Profil
+                    </span>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <%=  link_to(new_user_session_path, class: "button") do %>
+                  <span class="icon">
+                    <i class="fas fa-sign-in-alt"></i>
+                  </span>
+                  <span>
+                    Login
+                  </span>
+                <% end %>
+              </p>
+              <p class="control">
+                <%=  link_to(new_user_registration_path, class: "button is-dark") do %>
+                  <span class="icon">
+                    <i class="fas fa-user-plus"></i>
+                  </span>
+                  <span>
+                    Sign up 
+                  </span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </nav>
+    <div class="container">
+      <% if notice %>
+        <p class="notification is-info"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="notification is-warning"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
