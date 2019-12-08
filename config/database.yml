@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: coin_production
-  username: coin
-  password: <%= ENV['COIN_DATABASE_PASSWORD'] %>
+  username: bgdbezwjdrrkvf
+  password: <%= ENV['f4cbc6b21aab34e38e110826026842699baa8e1f0ed3b26865e22f8ea2d26508'] %>
