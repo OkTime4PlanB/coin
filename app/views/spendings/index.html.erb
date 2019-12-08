@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Spendings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spendings.each do |spending| %>
+      <tr>
+        <td><%= spending.user_id %></td>
+        <td><%= spending.category_id %></td>
+        <td><%= spending.name %></td>
+        <td><%= spending.price %></td>
+        <td><%= spending.amount %></td>
+        <td><%= link_to 'Show', spending %></td>
+        <td><%= link_to 'Edit', edit_spending_path(spending) %></td>
+        <td><%= link_to 'Destroy', spending, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Spending', new_spending_path %>
