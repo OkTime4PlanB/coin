@@ -14,7 +14,8 @@ class SpendingsController < ApplicationController
 
   # GET /spendings/new
   def new
-    @spending = Spending.new
+    @user = User.find params[:user_id]
+    @spending = Spending.new(:user=>@user)
   end
 
   # GET /spendings/1/edit
@@ -28,7 +29,7 @@ class SpendingsController < ApplicationController
 
     respond_to do |format|
       if @spending.save
-        format.html { redirect_to @spending, notice: 'Spending was successfully created.' }
+        format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully created.' }
         format.json { render :show, status: :created, location: @spending }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class SpendingsController < ApplicationController
   def update
     respond_to do |format|
       if @spending.update(spending_params)
-        format.html { redirect_to @spending, notice: 'Spending was successfully updated.' }
+        format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully updated.' }
         format.json { render :show, status: :ok, location: @spending }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class SpendingsController < ApplicationController
   def destroy
     @spending.destroy
     respond_to do |format|
-      format.html { redirect_to spendings_url, notice: 'Spending was successfully destroyed.' }
+      format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
