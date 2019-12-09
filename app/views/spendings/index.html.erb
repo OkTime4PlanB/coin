@@ -16,10 +16,10 @@
   <tbody>
     <% @spendings.each do |spending| %>
       <tr>
-        <td><%= spending.user_id %></td>
+        <td><%= @user.email %></td>
         <td><%= spending.category_id %></td>
         <td><%= spending.name %></td>
-        <td><%= spending.price %></td>
+        <td><%= "#{spending.price} €" %></td>
         <td><%= spending.amount %></td>
         <td><%= link_to 'Show', user_spending_path(spending.user, spending) %></td>
         <td><%= link_to 'Edit', edit_user_spending_path(spending.user, spending) %></td>

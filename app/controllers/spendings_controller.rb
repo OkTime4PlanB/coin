@@ -4,6 +4,7 @@ class SpendingsController < ApplicationController
   # GET /spendings
   # GET /spendings.json
   def index
+    @user = User.find(params[:user_id])
     @spendings = Spending.all
   end
 
@@ -26,7 +27,7 @@ class SpendingsController < ApplicationController
   # POST /spendings.json
   def create
     @spending = Spending.new(spending_params)
-
+    @spending.user_id = current_user.id
     respond_to do |format|
       if @spending.save
         format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully created.' }
