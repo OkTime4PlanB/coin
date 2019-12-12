@@ -11,12 +11,15 @@ class SpendingsController < ApplicationController
   # GET /spendings/1
   # GET /spendings/1.json
   def show
+    @user = User.find(params[:user_id])
+    @category = Category.all
   end
 
   # GET /spendings/new
   def new
     @user = User.find params[:user_id]
     @spending = Spending.new(:user=>@user)
+    @category = Category.all
   end
 
   # GET /spendings/1/edit
@@ -26,6 +29,7 @@ class SpendingsController < ApplicationController
   # POST /spendings
   # POST /spendings.json
   def create
+    @user = User.find params[:user_id]
     @spending = Spending.new(spending_params)
     @spending.user_id = current_user.id
     respond_to do |format|
@@ -56,6 +60,7 @@ class SpendingsController < ApplicationController
   # DELETE /spendings/1
   # DELETE /spendings/1.json
   def destroy
+    
     @spending.destroy
     respond_to do |format|
       format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully destroyed.' }
@@ -66,6 +71,7 @@ class SpendingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_spending
+      @user = User.find params[:user_id]
       @spending = Spending.find(params[:id])
     end
 

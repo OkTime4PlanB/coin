@@ -4,13 +4,13 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :category_id %>
+    <%= f.select :category_id, Category.all.map { |c| [c.name, c.id] }, include_blank: true %>
     <%= f.input :name %>
     <%= f.input :price %>
     <%= f.input :amount %>
   </div>
-
+  <br>
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "is-success is-pulled-right" %>
   </div>
 <% end %>

@@ -1,3 +1,4 @@
+<br>
 <p>
   <strong>User:</strong>
   <%= @spending.user_id %>
@@ -23,5 +24,5 @@
   <%= @spending.amount %>
 </p>
 
-<%= link_to 'Edit', edit_user_spending_path(@spending) %> |
-<%= link_to 'Back', user_spendings_path %>
+<%= link_to 'Edit', edit_user_spending_path([@user, @spending]), class: "button is-success is-pulled-right" %>
+<%= link_to 'Back', user_spendings_path, class: "button is-dark" %>
