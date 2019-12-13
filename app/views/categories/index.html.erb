@@ -5,6 +5,8 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Total</th>
+      <th>Total Current</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,6 +15,8 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.name %></td>
+        <td><%= category.total %></td>
+        <td><%= "#{Spending.where(category: category.id).sum(:price)} €" %></td>
         <td><%= link_to 'Show', category, class: "button is-info is-small" %></td>
         <td><%= link_to 'Edit', edit_category_path(category), class: "button is-dark is-small", class: "button is-dark is-small" %></td>
         <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-small" %></td>
