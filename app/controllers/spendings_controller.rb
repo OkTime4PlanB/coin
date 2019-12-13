@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class SpendingsController < ApplicationController
-  before_action :set_spending, only: [:show, :edit, :update, :destroy]
+  before_action :set_spending, only: %i[show edit update destroy]
 
   # GET /spendings
   # GET /spendings.json
   def index
     @user = User.find(params[:user_id])
-    @spendings = Spending.all
+    @spendings = Spending.all.reverse
   end
 
   # GET /spendings/1
@@ -18,13 +20,12 @@ class SpendingsController < ApplicationController
   # GET /spendings/new
   def new
     @user = User.find params[:user_id]
-    @spending = Spending.new(:user=>@user)
+    @spending = Spending.new(user: @user)
     @category = Category.all
   end
 
   # GET /spendings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /spendings
   # POST /spendings.json
@@ -60,7 +61,6 @@ class SpendingsController < ApplicationController
   # DELETE /spendings/1
   # DELETE /spendings/1.json
   def destroy
-    
     @spending.destroy
     respond_to do |format|
       format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully destroyed.' }
@@ -69,14 +69,15 @@ class SpendingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_spending
-      @user = User.find params[:user_id]
-      @spending = Spending.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def spending_params
-      params.require(:spending).permit(:user_id, :category_id, :name, :price, :amount)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_spending
+    @user = User.find params[:user_id]
+    @spending = Spending.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def spending_params
+    params.require(:spending).permit(:user_id, :category_id, :name, :price, :amount)
+  end
 end
