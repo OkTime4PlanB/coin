@@ -1,33 +1,47 @@
 <br>
 <h1 class="title">Spendings</h1>
-
-<table class="table is-hoverable is-fullwidth is-striped">
+<h2 class="subtitle"><%= @month %><h2>
+<br>
+<table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
-      <th>User</th>
       <th>Category</th>
       <th>Name</th>
       <th>Price</th>
       <th>Amount</th>
-      <th colspan="3"></th>
+      <th>
+        <%= link_to new_user_spending_path, class: "button is-success is-pulled-right" do %>
+          <span class="icon">
+            <i class="fas fa-plus-circle"></i>
+          </span>
+        <% end %>
+      </th>
     </tr>
   </thead>
 
   <tbody>
     <% @spendings.each do |spending| %>
       <tr>
-        <td><%= @user.email %></td>
-        <td><%= Category.find(spending.category_id).name %></td>
-        <td><%= spending.name %></td>
+        <td><%= link_to Category.find(spending.category_id).name, Category.find(spending.category_id), class: "button is-white is-small" %></td>
+        <td><%= link_to spending.name, edit_user_spending_path(spending.user, spending), class: "button is-white is-small" %></td>
         <td><%= "#{spending.price} €" %></td>
         <td><%= spending.amount %></td>
-        <td><%= link_to 'Show', user_spending_path(spending.user, spending), class: "button is-info is-small" %></td>
-        <td><%= link_to 'Edit', edit_user_spending_path(spending.user, spending), class: "button is-dark is-small" %></td>
-        <td><%= link_to 'Destroy', user_spending_path(spending.user, spending), method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-small" %></td>
+        <td>
+          <%= link_to user_spending_path(spending.user_id, spending), method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-pulled-right" do %>
+            <span class="icon">
+              <i class="far fa-times-circle"></i>
+            </span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-
-<%= link_to 'New Spending', new_user_spending_path, class: "button is-success" %>
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  <%= link_to 'Previous', user_spendings_path(page: @page -1), class: "pagination-previous" %>
+  <%= link_to 'Next', user_spendings_path(page: @page +1), class: "pagination-next" %>
+  <ul class="pagination-list">
+    <%= link_to @page, user_spendings_path(page: @page), class: "pagination-link is-current" %>
+  </ul>
+</nav>

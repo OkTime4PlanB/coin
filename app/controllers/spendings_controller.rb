@@ -6,8 +6,18 @@ class SpendingsController < ApplicationController
   # GET /spendings
   # GET /spendings.json
   def index
+    @page = params.fetch(:page, 0).to_i
     @user = User.find(params[:user_id])
-    @spendings = Spending.all.reverse
+    if @page == 0
+      @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month)..(Date.today.end_of_month))).reverse
+      @month = Date.today.strftime("%B")
+    elsif @page == -1
+      @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month - 1.month)..(Date.today.end_of_month - 1.month))).reverse
+      @month = (Date.today - 1.month).strftime("%B")
+    elsif @page == 1
+      @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month + 1.month)..(Date.today.end_of_month + 1.month))).reverse
+      @month = (Date.today + 1.month).strftime("%B")
+    end
   end
 
   # GET /spendings/1
@@ -63,7 +73,7 @@ class SpendingsController < ApplicationController
   def destroy
     @spending.destroy
     respond_to do |format|
-      format.html { redirect_to user_spending_path(@spending.user, @spending), notice: 'Spending was successfully destroyed.' }
+      format.html { redirect_to user_spendings_path(@spending.user, @spending), notice: 'Spending was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

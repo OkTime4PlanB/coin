@@ -16,7 +16,7 @@
       <tr>
         <td><%= category.name %></td>
         <td><%= category.total %></td>
-        <td><%= "#{Spending.where(category: category.id).sum(:price)} €" %></td>
+        <td><%= "#{Spending.where(created_at: Date.today.all_month).where(category: category.id).sum(:price)} €" %></td>
         <td><%= link_to 'Show', category, class: "button is-info is-small" %></td>
         <td><%= link_to 'Edit', edit_category_path(category), class: "button is-dark is-small", class: "button is-dark is-small" %></td>
         <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-small" %></td>
