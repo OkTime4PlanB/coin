@@ -42,6 +42,6 @@
   <%= link_to 'Previous', user_spendings_path(page: @page -1), class: "pagination-previous" %>
   <%= link_to 'Next', user_spendings_path(page: @page +1), class: "pagination-next" %>
   <ul class="pagination-list">
-    <%= link_to @page, user_spendings_path(page: @page), class: "pagination-link is-current" %>
+    <%= link_to @month, user_spendings_path(page: @page), class: "pagination-link is-current has-background-dark" %>
   </ul>
 </nav>

@@ -8,15 +8,15 @@ class SpendingsController < ApplicationController
   def index
     @page = params.fetch(:page, 0).to_i
     @user = User.find(params[:user_id])
-    if @page == 0
+    if @page.zero?
       @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month)..(Date.today.end_of_month))).reverse
-      @month = Date.today.strftime("%B")
+      @month = Date.today.strftime('%B')
     elsif @page == -1
       @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month - 1.month)..(Date.today.end_of_month - 1.month))).reverse
-      @month = (Date.today - 1.month).strftime("%B")
+      @month = (Date.today - 1.month).strftime('%B')
     elsif @page == 1
       @spendings = Spending.all.where(created_at: ((Date.today.beginning_of_month + 1.month)..(Date.today.end_of_month + 1.month))).reverse
-      @month = (Date.today + 1.month).strftime("%B")
+      @month = (Date.today + 1.month).strftime('%B')
     end
   end
 
